@@ -29,6 +29,7 @@ namespace Grocery.Core.Data.Repositories
         {
             groceryLists.Clear();
             string selectQuery = "SELECT Id, Name, date(Date), Color, ClientId FROM GroceryList";
+            
             OpenConnection();
             using (SqliteCommand command = new(selectQuery, Connection))
             {
@@ -44,13 +45,14 @@ namespace Grocery.Core.Data.Repositories
                     groceryLists.Add(new(id, name, date, color, clientId));
                 }
             }
+
             CloseConnection();
             return groceryLists;
         }
         public GroceryList Add(GroceryList item)
         {
-            int recordsAffected;
             string insertQuery = $"INSERT INTO GroceryList(Name, Date, Color, ClientId) VALUES(@Name, @Date, @Color, @ClientId) Returning RowId;";
+            
             OpenConnection();
             using (SqliteCommand command = new(insertQuery, Connection))
             {
@@ -59,9 +61,9 @@ namespace Grocery.Core.Data.Repositories
                 command.Parameters.AddWithValue("Color", item.Color);
                 command.Parameters.AddWithValue("ClientId", item.ClientId);
 
-                //recordsAffected = command.ExecuteNonQuery();
                 item.Id = Convert.ToInt32(command.ExecuteScalar());
             }
+
             CloseConnection();
             return item;
         }
@@ -79,6 +81,7 @@ namespace Grocery.Core.Data.Repositories
         {
             string selectQuery = $"SELECT Id, Name, date(Date), Color, ClientId FROM GroceryList WHERE Id = {id}";
             GroceryList? gl = null;
+
             OpenConnection();
             using (SqliteCommand command = new(selectQuery, Connection))
             {
@@ -94,6 +97,7 @@ namespace Grocery.Core.Data.Repositories
                     gl = (new(Id, name, date, color, clientId));
                 }
             }
+
             CloseConnection();
             return gl;
         }
@@ -102,6 +106,7 @@ namespace Grocery.Core.Data.Repositories
         {
             int recordsAffected;
             string updateQuery = $"UPDATE GroceryList SET Name = @Name, Date = @Date, Color = @Color  WHERE Id = {item.Id};";
+            
             OpenConnection();
             using (SqliteCommand command = new(updateQuery, Connection))
             {
@@ -111,6 +116,7 @@ namespace Grocery.Core.Data.Repositories
 
                 recordsAffected = command.ExecuteNonQuery();
             }
+
             CloseConnection();
             return item;
         }
