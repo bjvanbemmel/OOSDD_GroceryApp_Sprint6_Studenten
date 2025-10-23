@@ -44,7 +44,7 @@ namespace Grocery.Core.Data.Repositories
                     int id = reader.GetInt32(0);
                     string name = reader.GetString(1);
                     int stock = reader.GetInt32(2);
-                    DateOnly shelfLife = DateOnly.FromDateTime(reader.GetDateTime(3));
+                    DateTime shelfLife = reader.GetDateTime(3);
                     decimal price = reader.GetDecimal(4);
                     products.Add(new(id, name, stock, shelfLife, price));
                 }
@@ -69,7 +69,7 @@ namespace Grocery.Core.Data.Repositories
 					int _id = reader.GetInt32(0);
 					string name = reader.GetString(1);
 					int stock = reader.GetInt32(2);
-					DateOnly shelfLife = DateOnly.FromDateTime(reader.GetDateTime(3));
+					DateTime shelfLife = reader.GetDateTime(3);
 					decimal price = reader.GetDecimal(4);
                     product = new(_id, name, stock, shelfLife, price);
 				}

@@ -39,16 +39,17 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding Name}"/>
-                        <Label Grid.Column="1" Text="{Binding Stock, StringFormat='{}{0:F0} op voorraad'}" HorizontalOptions="End">
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding Stock}" Value="0">
-                                    <Setter Property="Text" Value="niet op voorraad" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                        <Label Grid.Column="2" Text="{Binding ShelfLife}" HorizontalOptions="End"/>
-                        <Label Grid.Column="3" Text="{Binding Price}" HorizontalOptions="End"/>
+                        <Entry Grid.Column="0" Placeholder="Naam" Text="{Binding Name}" />
+                        <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+                            <Entry Keyboard="Numeric" Placeholder="Voorraad" Text="{Binding Stock}" HorizontalOptions="End"></Entry>
+                            <Label VerticalOptions="Center">op voorraad</Label>
+                        </HorizontalStackLayout>
+                        <DatePicker Grid.Column="2" HorizontalOptions="End" Date="{Binding ShelfLife}" />
+
+                        <HorizontalStackLayout Grid.Column="3" HorizontalOptions="End">
+                            <Label Text="€" VerticalOptions="Center" />
+                            <Entry Keyboard="Text" HorizontalOptions="End" Text="{Binding Price}"/>
+                        </HorizontalStackLayout>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
