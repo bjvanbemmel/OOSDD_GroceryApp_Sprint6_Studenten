@@ -1,5 +1,6 @@
 ﻿using Grocery.Core.Interfaces.Repositories;
 using Grocery.Core.Interfaces.Services;
+using Grocery.Core.Interfaces.Validators;
 using Grocery.Core.Models;
 
 namespace Grocery.Core.Services
@@ -7,6 +8,7 @@ namespace Grocery.Core.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IProductValidator _productValidator;
 
         public ProductService(IProductRepository productRepository)
         {
@@ -35,6 +37,7 @@ namespace Grocery.Core.Services
 
         public Product? Update(Product item)
         {
+            _productValidator.Validate(item);
             return _productRepository.Update(item);
         }
     }
