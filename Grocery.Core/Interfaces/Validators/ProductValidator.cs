@@ -10,7 +10,7 @@ namespace Grocery.Core.Interfaces.Validators
 	public interface IProductValidator
 	{
 		public bool NameIsValid(string name);
-		public bool StockIsvalid(int stock);
+		public bool StockIsValid(int stock);
 		public bool ShelfLifeIsValid(DateTime shelfLife);
 		public bool PriceIsValid(decimal price);
 		public bool Validate(Product? product);

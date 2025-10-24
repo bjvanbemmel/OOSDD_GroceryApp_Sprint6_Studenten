@@ -10,9 +10,10 @@ namespace Grocery.Core.Services
         private readonly IProductRepository _productRepository;
         private readonly IProductValidator _productValidator;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IProductValidator productValidator)
         {
             _productRepository = productRepository;
+            _productValidator = productValidator;
         }
 
         public List<Product> GetAll()
@@ -32,7 +33,7 @@ namespace Grocery.Core.Services
 
         public Product? Get(int id)
         {
-            throw new NotImplementedException();
+            return _productRepository.Get(id);
         }
 
         public Product? Update(Product item)
