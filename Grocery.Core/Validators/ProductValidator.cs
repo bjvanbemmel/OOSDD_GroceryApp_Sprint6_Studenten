@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Grocery.Core.Validators
 {
-	public class ProductValidataor : IProductValidator
+	public class ProductValidator : IProductValidator
 	{
 		const uint MAX_NAME_LENGTH = 80;
 		const uint MIN_STOCK = 0;

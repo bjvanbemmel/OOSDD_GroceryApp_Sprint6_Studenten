@@ -46,7 +46,7 @@ namespace Grocery.App
             builder.Services.AddSingleton<IProductCategoryRepository, ProductCategoryRepository>();
             builder.Services.AddSingleton<GlobalViewModel>();
 
-            builder.Services.AddSingleton<IProductValidator, ProductValidataor>();
+            builder.Services.AddSingleton<IProductValidator, ProductValidator>();
 
             builder.Services.AddTransient<GroceryListsView>().AddTransient<GroceryListViewModel>();
             builder.Services.AddTransient<GroceryListItemsView>().AddTransient<GroceryListItemsViewModel>();
