@@ -6,6 +6,8 @@ using Grocery.Core.Interfaces.Services;
 using Grocery.Core.Interfaces.Repositories;
 using Grocery.Core.Data.Repositories;
 using CommunityToolkit.Maui;
+using Grocery.Core.Interfaces.Validators;
+using Grocery.Core.Validators;
 
 namespace Grocery.App
 {
@@ -43,6 +45,8 @@ namespace Grocery.App
             builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
             builder.Services.AddSingleton<IProductCategoryRepository, ProductCategoryRepository>();
             builder.Services.AddSingleton<GlobalViewModel>();
+
+            builder.Services.AddSingleton<IProductValidator, ProductValidator>();
 
             builder.Services.AddTransient<GroceryListsView>().AddTransient<GroceryListViewModel>();
             builder.Services.AddTransient<GroceryListItemsView>().AddTransient<GroceryListItemsViewModel>();
