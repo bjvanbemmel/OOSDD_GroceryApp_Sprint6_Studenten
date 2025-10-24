@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Grocery.App.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Grocery.App.Views.ProductView"
              Title="ProductView">
-    
+
     <Shell.TitleView>
         <Grid>
             <Label Text="Producten" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
@@ -12,7 +13,7 @@
     </Shell.TitleView>
 
     <Border Stroke="#C49B33" StrokeThickness="4" Padding="10" Margin="10" HorizontalOptions="Center">
-        <CollectionView ItemsSource="{Binding Products}" Margin="20" HorizontalOptions="Center">
+        <CollectionView x:Name="CollectionView" ItemsSource="{Binding Products}" Margin="20" HorizontalOptions="Center">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
             </CollectionView.ItemsLayout>
@@ -39,16 +40,53 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding Name}"/>
-                        <Label Grid.Column="1" Text="{Binding Stock, StringFormat='{}{0:F0} op voorraad'}" HorizontalOptions="End">
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding Stock}" Value="0">
-                                    <Setter Property="Text" Value="niet op voorraad" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                        <Label Grid.Column="2" Text="{Binding ShelfLife}" HorizontalOptions="End"/>
-                        <Label Grid.Column="3" Text="{Binding Price}" HorizontalOptions="End"/>
+                        
+                        <Entry
+                            Grid.Column="0"
+                            Placeholder="Naam"
+                            ReturnType="Done"
+                            Text="{Binding Name}"
+                            ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductViewModel}}, Path=UpdateProductCommand}"
+                            ReturnCommandParameter="{Binding}"
+                        />
+
+                        <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+                            <Entry
+                                Keyboard="Numeric"
+                                Placeholder="Voorraad"
+                                HorizontalOptions="End"
+                                Text="{Binding Stock}"
+                                ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductViewModel}}, Path=UpdateProductCommand}"
+                                ReturnCommandParameter="{Binding}"
+                            />
+                            <Label VerticalOptions="Center">op voorraad</Label>
+                        </HorizontalStackLayout>
+
+                        <DatePicker
+                            Grid.Column="2"
+                            HorizontalOptions="End"
+                            Date="{Binding ShelfLife}"
+                            x:Name="ProductDatePicker"
+                        >
+                            <DatePicker.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="DateSelected"
+                                    Command="{Binding Source={Reference CollectionView}, Path=BindingContext.UpdateProductCommand}"
+                                    CommandParameter="{Binding}"
+                                />
+                            </DatePicker.Behaviors>
+                        </DatePicker>
+
+                        <HorizontalStackLayout Grid.Column="3" HorizontalOptions="End">
+                            <Label Text="€" VerticalOptions="Center" />
+                            <Entry
+                                Keyboard="Numeric"
+                                HorizontalOptions="End"
+                                Text="{Binding Price, StringFormat='{0:F2}'}"
+                                ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductViewModel}}, Path=UpdateProductCommand}"
+                                ReturnCommandParameter="{Binding}"
+                            />
+                        </HorizontalStackLayout>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

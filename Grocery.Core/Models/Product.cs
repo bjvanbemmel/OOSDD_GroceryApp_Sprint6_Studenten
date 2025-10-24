@@ -7,14 +7,14 @@ namespace Grocery.Core.Models
     {
         [ObservableProperty]
         public int stock;
-        public DateOnly ShelfLife { get; set; }
+        public DateTime ShelfLife { get; set; }
         [RegularExpression(@"^\d+\.\d{0,2}$")]
         [Range(0, 999.99)]
         public Decimal Price { get; set; } = 0;
         public Product(int id, string name, int stock) : this(id, name, stock, default, 0) { }
-        public Product(int id, string name, int stock, DateOnly shelfLife) : this(id, name, stock, default, 0) { }
+        public Product(int id, string name, int stock, DateTime shelfLife) : this(id, name, stock, default, 0) { }
 
-        public Product(int id, string name, int stock, DateOnly shelfLife, Decimal price) : base(id, name)
+        public Product(int id, string name, int stock, DateTime shelfLife, Decimal price) : base(id, name)
         {
             Stock = stock;
             ShelfLife = shelfLife;
