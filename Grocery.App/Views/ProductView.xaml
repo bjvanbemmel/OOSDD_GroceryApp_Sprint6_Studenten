@@ -25,7 +25,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Text="Naam van het product" Grid.Column="0" FontAttributes="Bold"/>
-                    <Label Text="Voorraad" Grid.Column="1" FontAttributes="Bold"/>
+                    <Label Text="Voorraad" Grid.Column="1" HorizontalTextAlignment="End" FontAttributes="Bold"/>
                     <Label Text="THT datum" Grid.Column="2" HorizontalTextAlignment="End" FontAttributes="Bold"/>
                     <Label Text="Prijs" Grid.Column="3" HorizontalTextAlignment="End" FontAttributes="Bold"/>
                 </Grid>
